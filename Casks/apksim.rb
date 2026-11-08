@@ -5,8 +5,8 @@
 # A cask rather than a formula: the release is prebuilt and self-contained (its own JDK 24 runtime, libraries and
 # native code), and Homebrew installs a formula without a bottle only with up-to-date Command Line Tools.
 cask "apksim" do
-  version "0.18.0"
-  sha256 "a7af8f677ba8aa40c7ff320eacaa1e012893df5da886b28b58f419a9ca9122c2"
+  version "0.19.0"
+  sha256 "707dba1a2deb9c3be607904480b74954f6c4cf182f9ad0b00a629381ae639e45"
 
   url "https://github.com/aglose/apksim/releases/download/v#{version}/apksim-#{version}-macos-arm64.tar.gz"
   name "apksim"
@@ -24,11 +24,22 @@ cask "apksim" do
     run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "."], chdir: ".", writable_paths: ["."]
   end
 
-  zap trash: "~/.apksim"
+  # `apksim beam install` (opt-in) adds two LaunchAgents: launchd starts the agent when a browser page asks
+  # (docs/beam.md). Not removed by `uninstall`: `brew upgrade` runs a cask's uninstall launchctl and delete too, which
+  # took them away at every upgrade. Each job removes itself once bin/apksim is gone (BeamLaunchd.guarded); zap removes
+  # them at once.
+  zap launchctl: ["dev.apksim.beam", "dev.apksim.beam.sweep"],
+      delete:    [
+        "~/Library/LaunchAgents/dev.apksim.beam.plist",
+        "~/Library/LaunchAgents/dev.apksim.beam.sweep.plist",
+      ],
+      trash:     "~/.apksim"
 
   caveats <<~EOS
     The first launch builds a startup cache in ~/.apksim in the background (1-2 minutes, once per version);
     launches are faster after that. To build it now instead:
       apksim --train
+    To let pages of an apksim serve with --allow-beam run their apps on this Mac (each site asks you first):
+      apksim beam install
   EOS
 end

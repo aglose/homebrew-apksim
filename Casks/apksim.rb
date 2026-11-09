@@ -5,8 +5,8 @@
 # A cask rather than a formula: the release is prebuilt and self-contained (its own JDK 24 runtime, libraries and
 # native code), and Homebrew installs a formula without a bottle only with up-to-date Command Line Tools.
 cask "apksim" do
-  version "0.19.1"
-  sha256 "dbdfd186c7632f19327ca85db1f9ad7dbe9312fb8562662fd935446b7bfd5e42"
+  version "0.20.0"
+  sha256 "4ea04501a905e0141cfa6c26b90fd038820ad593a591278f0ee11a03b987976c"
 
   url "https://github.com/aglose/apksim/releases/download/v#{version}/apksim-#{version}-macos-arm64.tar.gz"
   name "apksim"
@@ -41,5 +41,7 @@ cask "apksim" do
       apksim --train
     To let pages of an apksim serve with --allow-beam run their apps on this Mac (each site asks you first):
       apksim beam install
+    Your team's own site can be allowed up front, so it does not ask:
+      apksim beam install --trust https://dashboard.example.com
   EOS
 end

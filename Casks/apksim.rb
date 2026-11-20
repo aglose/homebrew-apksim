@@ -5,8 +5,8 @@
 # A cask rather than a formula: the release is prebuilt and self-contained (its own JDK 24 runtime, libraries and
 # native code), and Homebrew installs a formula without a bottle only with up-to-date Command Line Tools.
 cask "apksim" do
-  version "0.55.0"
-  sha256 "9cd3c59128ac7a688d99ac2b90fb02fdf9ac09758b898ceb9ab14283d2c041e9"
+  version "0.56.0"
+  sha256 "3cb96a47488cd23a436146caf3dd9c209573dddc13d306e9e8e3c33467b5363c"
 
   url "https://github.com/aglose/apksim/releases/download/v#{version}/apksim-#{version}-macos-arm64.tar.gz"
   name "apksim"

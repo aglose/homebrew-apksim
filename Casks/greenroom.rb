@@ -3,8 +3,8 @@
 # The `tap` job in .github/workflows/release.yml fills in the version and checksum when a release is published
 # and pushes the result to the tap as Casks/greenroom.rb; this copy is the template.
 cask "greenroom" do
-  version "0.18.1"
-  sha256 "6cfd204ca010b847a4f7412b4c79a9da1186456051329f0b5ee25cd200837391"
+  version "0.19.0"
+  sha256 "7393a36c8dde0db3c4008364b093fef8aabfd4a841dc57377ec50b09d47b0b13"
 
   url "https://github.com/aglose/greenroom/releases/download/v#{version}/Greenroom-#{version}.dmg"
   name "Greenroom"
